@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSP.Lab2.Presentation", "DSP.Lab2.Presentation\DSP.Lab2.Presentation.csproj", "{0631CD82-0F9E-4084-8FA9-94FC18E96FA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSP.Lab2.Api", "DSP.Lab2.Api\DSP.Lab2.Api.csproj", "{8F661913-5331-457A-A13B-C9B197BD8A6B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0631CD82-0F9E-4084-8FA9-94FC18E96FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0631CD82-0F9E-4084-8FA9-94FC18E96FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0631CD82-0F9E-4084-8FA9-94FC18E96FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0631CD82-0F9E-4084-8FA9-94FC18E96FA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F661913-5331-457A-A13B-C9B197BD8A6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F661913-5331-457A-A13B-C9B197BD8A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F661913-5331-457A-A13B-C9B197BD8A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F661913-5331-457A-A13B-C9B197BD8A6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21AAEBF7-DDEC-41E0-8FE4-695680EEB804}
+	EndGlobalSection
+EndGlobal
