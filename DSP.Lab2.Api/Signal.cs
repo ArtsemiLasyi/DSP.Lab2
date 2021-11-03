@@ -9,20 +9,24 @@ namespace DSP.Lab2.Api
         public double[] sinusSp, cosinusSp;
         public double[] amplSp, phaseSp;
         public int numHarm = 1024;
-        public int min, max;
-        public FiltrationType filtrationType;
+
+        public int minFrequency;
+        public int maxFrequency;
+
+        public FiltrationType filtrationType;                               
         public int restorePoints;
-        public Signal(int min, int max, FiltrationType filtrationType)
+
+        public Signal(int minFrequency, int maxFrequency, FiltrationType filtrationType)
         {
-            this.min = min;
-            this.max = max;
+            this.minFrequency = minFrequency;
+            this.maxFrequency = maxFrequency;
             this.filtrationType = filtrationType;
 
         }
         public void reDrawSignal(int min, int max, FiltrationType filtrationType)
         {
-            this.min = min;
-            this.max = max;
+            this.minFrequency = min;
+            this.maxFrequency = max;
             this.filtrationType = filtrationType;
             int resotorePoints = n % 2 == 0 ? n / 2 : (n / 2 - 1);
 
@@ -102,13 +106,13 @@ namespace DSP.Lab2.Api
                 switch (filtrationType)
                 {
                     case FiltrationType.BandPass:
-                        values[j] = (j > max && j < min) ? tempValue : 0;
+                        values[j] = (j > maxFrequency && j < minFrequency) ? tempValue : 0;
                         break;
                     case FiltrationType.HighFrequencies:
-                        values[j] = j < max ? 0 : tempValue;
+                        values[j] = j < maxFrequency ? 0 : tempValue;
                         break;
                     case FiltrationType.LowFrequencies:
-                        values[j] = j > min ? 0 : tempValue;
+                        values[j] = j > minFrequency ? 0 : tempValue;
                         break;
                     case FiltrationType.None:
                         values[j] = tempValue;

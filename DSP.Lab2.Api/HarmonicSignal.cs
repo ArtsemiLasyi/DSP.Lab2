@@ -8,14 +8,23 @@ namespace DSP.Lab2.Api
 {
     public class HarmonicSignal : Signal
     {
-        double A, f, phi;
-        public HarmonicSignal(double amplitude, double freq, double phase, int discrPoints,
-            int min, int max, FiltrationType filtrationType) : base(min, max, filtrationType)
+        double Amplitude;
+        double Frequency;
+        double Phase;
+
+        public HarmonicSignal(
+            double amplitude,
+            double frequency,
+            double phase,
+            int discrPoints,
+            int minFrequency,
+            int maxFrequency,
+            FiltrationType filtrationType) : base(minFrequency, maxFrequency, filtrationType)
         {
-            A = amplitude;
+            Amplitude = amplitude;
             n = discrPoints;
-            f = freq;
-            phi = phase;
+            Frequency = frequency;
+            Phase = phase;
 
             numHarm = n % 2 == 0 ? n / 2 : (n - 1) / 2;
             restorePoints = n % 2 == 0 ? n / 2 : (n / 2 - 1);
@@ -31,12 +40,12 @@ namespace DSP.Lab2.Api
 
         internal override double[] GenerateSignal()
         {
-            double[] sign = new double[n];
+            double[] signalValues = new double[n];
             for (int i = 0; i <= n - 1; i++)
             {
-                sign[i] = A * Math.Cos(2 * Math.PI * f * i / n + phi);
+                signalValues[i] = Amplitude * Math.Cos(2 * Math.PI * Frequency * i / n + Phase);
             }
-            return sign;
+            return signalValues;
         }
 
     }
