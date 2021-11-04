@@ -40,8 +40,8 @@ namespace DSP.Lab2.Presentation
             SignalComboBox.SelectedIndex = 0;
             FilterComboBox.SelectedIndex = 3;
 
-            LowFrequenciesLabel.Text = "НЧ: " + Convert.ToString(LowFrequenciesTrackBar.Value) + " Гц";
-            HighFrequenciesLabel.Text = "ВЧ: " + Convert.ToString(HighFrequenciesTrackBar.Value) + " Гц";
+            LowFrequenciesLabel.Text = "НЧ: " + Convert.ToString(LowFrequenciesTrackBar.Value);
+            HighFrequenciesLabel.Text = "ВЧ: " + Convert.ToString(HighFrequenciesTrackBar.Value);
             
             currentSignal = SignalType.Harmonic;
             currentFiltrationType = FiltrationType.None;
@@ -60,7 +60,7 @@ namespace DSP.Lab2.Presentation
             }
         }
 
-        private void Calculate(int frequency, int min, int max)
+        private void Calculate(int frequency, int minFrequency, int maxFrequency)
         {
             Signal signal;
             int N = 1024;
@@ -71,10 +71,10 @@ namespace DSP.Lab2.Presentation
                     signal = new HarmonicSignal(
                         50,
                         frequency,
-                        Math.PI / 4,
+                        - Math.PI / 4,
                         N,
-                        min,
-                        max,
+                        minFrequency,
+                        maxFrequency,
                         currentFiltrationType
                     );
                 }
@@ -104,8 +104,8 @@ namespace DSP.Lab2.Presentation
                         frequency,
                         ph,
                         N,
-                        min,
-                        max,
+                        minFrequency,
+                        maxFrequency,
                         currentFiltrationType
                     );
                 }
@@ -113,7 +113,7 @@ namespace DSP.Lab2.Presentation
             }
             else if (instSignal != null & Redraw == true)
             {
-                instSignal.reDrawSignal(min, max, currentFiltrationType);
+                instSignal.reDrawSignal(minFrequency, maxFrequency, currentFiltrationType);
             }
 
             ClearCharts();
@@ -147,18 +147,19 @@ namespace DSP.Lab2.Presentation
                 {
                     Summa2[i] /= Summa2.Length;
                     targetCharts[3].Series[0].Points.AddXY(
-                        2 * Math.PI * i / N,
+                        i,
                         Math.Sqrt(
-                            Math.Pow(Summa2[i].Real, 2) + Math.Pow(Summa2[i].Imaginary,2)
+                            Math.Pow(Summa2[i].Real, 2) + Math.Pow(Summa2[i].Imaginary, 2)
                         )
                     );
+                    // 2 * Math.PI * i / N
                 }
             }
 
-            for (int i = 0; i <= instSignal.numHarm - 1; i++)
+            for (int i = 0; i < instSignal.numberHarmonics; i++)
             {
-                targetCharts[1].Series[0].Points.AddXY(i, instSignal.phaseSp[i]);
-                targetCharts[2].Series[0].Points.AddXY(i, instSignal.amplSp[i]);
+                targetCharts[1].Series[0].Points.AddXY(i, instSignal.phaseSpectr[i]);
+                targetCharts[2].Series[0].Points.AddXY(i, instSignal.amplitudeSpectr[i]);
             }
 
         }
@@ -178,7 +179,7 @@ namespace DSP.Lab2.Presentation
         // Change low frequencies
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
-            LowFrequenciesLabel.Text = "НЧ: " + Convert.ToString(LowFrequenciesTrackBar.Value) + " Гц";
+            LowFrequenciesLabel.Text = "НЧ: " + Convert.ToString(LowFrequenciesTrackBar.Value);
             Redraw = true;
             Calculate(
                 FrequencyTrackBar.Value,
@@ -190,7 +191,7 @@ namespace DSP.Lab2.Presentation
         // Change high frequencies
         private void trackBar3_Scroll(object sender, EventArgs e)
         {
-            HighFrequenciesLabel.Text = "ВЧ: " + Convert.ToString(HighFrequenciesTrackBar.Value) + " Гц";
+            HighFrequenciesLabel.Text = "ВЧ: " + Convert.ToString(HighFrequenciesTrackBar.Value);
             Redraw = true;
             Calculate(FrequencyTrackBar.Value, LowFrequenciesTrackBar.Value, HighFrequenciesTrackBar.Value);
         }

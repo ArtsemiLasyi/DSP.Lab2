@@ -6,34 +6,42 @@ namespace DSP.Lab2.Api
     {
         public int n;
         public double[] signal, restSignal, nonPhasedSignal;
-        public double[] sinusSp, cosinusSp;
-        public double[] amplSp, phaseSp;
-        public int numHarm = 1024;
+        public double[] sinusSpectr, cosinusSpectr;
+        public double[] amplitudeSpectr, phaseSpectr;
+        public int numberHarmonics = 30;
 
-        public int minFrequency;
-        public int maxFrequency;
+        public int minHarmonic;
+        public int maxHarmonic;
 
         public FiltrationType filtrationType;                               
         public int restorePoints;
 
-        public Signal(int minFrequency, int maxFrequency, FiltrationType filtrationType)
+        public Signal(int minHarmonic, int maxHarmonic, FiltrationType filtrationType)
         {
-            this.minFrequency = minFrequency;
-            this.maxFrequency = maxFrequency;
+            this.minHarmonic = minHarmonic;
+            this.maxHarmonic = maxHarmonic;
             this.filtrationType = filtrationType;
 
         }
-        public void reDrawSignal(int min, int max, FiltrationType filtrationType)
+        public void reDrawSignal(int minFrequency, int maxFrequency, FiltrationType filtrationType)
         {
-            this.minFrequency = min;
-            this.maxFrequency = max;
+            this.minHarmonic = minFrequency;
+            this.maxHarmonic = maxFrequency;
             this.filtrationType = filtrationType;
-            int resotorePoints = n % 2 == 0 ? n / 2 : (n / 2 - 1);
 
-            sinusSp = GetSineSpectrum();
-            cosinusSp = GetCosineSpectrum();
-            amplSp = GetAmplSpectrum();
-            phaseSp = GetPhaseSpectrum();
+            if (n % 2 == 0)
+            {
+                restorePoints = n / 2;
+            }
+            else
+            {
+                restorePoints = (n / 2 - 1);
+            }
+
+            sinusSpectr = GetSineSpectrum();
+            cosinusSpectr = GetCosineSpectrum();
+            amplitudeSpectr = GetAmplSpectrum();
+            phaseSpectr = GetPhaseSpectrum();
             restSignal = RestoreSignal();
             nonPhasedSignal = RestoreNonPhasedSignal();
         }
@@ -43,11 +51,11 @@ namespace DSP.Lab2.Api
         }
         public double[] amplSpectrum
         { 
-            get { return amplSp; } 
+            get { return amplitudeSpectr; } 
         }
         public double[] phaseSpectrum 
         { 
-            get { return phaseSp; } 
+            get { return phaseSpectr; } 
         }
         public double[] restoredSignal 
         { 
@@ -65,8 +73,8 @@ namespace DSP.Lab2.Api
 
         internal double[] GetSineSpectrum()
         {
-            double[] values = new double[numHarm];
-            for (int j = 0; j <= numHarm - 1; j++)
+            double[] values = new double[numberHarmonics];
+            for (int j = 0; j < numberHarmonics; j++)
             {
                 double val = 0;
                 for (int i = 0; i <= n - 1; i++)
@@ -80,8 +88,8 @@ namespace DSP.Lab2.Api
 
         internal double[] GetCosineSpectrum()
         {
-            double[] values = new double[numHarm];
-            for (int j = 0; j <= numHarm - 1; j++)
+            double[] values = new double[numberHarmonics];
+            for (int j = 0; j < numberHarmonics; j++)
             {
                 double val = 0;
                 for (int i = 0; i <= n - 1; i++)
@@ -95,24 +103,24 @@ namespace DSP.Lab2.Api
 
         internal double[] GetAmplSpectrum()
         {
-            double[] values = new double[numHarm];
-            double[] temper = new double[numHarm];
+            double[] values = new double[numberHarmonics];
+            double[] temper = new double[numberHarmonics];
             double tempValue;
 
-            for (int j = 0; j <= numHarm - 1; j++)
+            for (int j = 0; j < numberHarmonics; j++)
             {
-                tempValue = Math.Sqrt(Math.Pow(sinusSp[j], 2) + Math.Pow(cosinusSp[j], 2));
+                tempValue = Math.Sqrt(Math.Pow(sinusSpectr[j], 2) + Math.Pow(cosinusSpectr[j], 2));
                 temper[j] = tempValue;
                 switch (filtrationType)
                 {
                     case FiltrationType.BandPass:
-                        values[j] = (j > maxFrequency && j < minFrequency) ? tempValue : 0;
+                        values[j] = (j > maxHarmonic && j < minHarmonic) ? tempValue : 0;
                         break;
                     case FiltrationType.HighFrequencies:
-                        values[j] = j < maxFrequency ? 0 : tempValue;
+                        values[j] = j < maxHarmonic ? 0 : tempValue;
                         break;
                     case FiltrationType.LowFrequencies:
-                        values[j] = j > minFrequency ? 0 : tempValue;
+                        values[j] = j > minHarmonic ? 0 : tempValue;
                         break;
                     case FiltrationType.None:
                         values[j] = tempValue;
@@ -124,10 +132,14 @@ namespace DSP.Lab2.Api
 
         internal double[] GetPhaseSpectrum()
         {
-            double[] values = new double[numHarm];
-            for (int j = 0; j <= numHarm - 1; j++)
+            double[] values = new double[numberHarmonics];
+            for (int j = 0; j <= numberHarmonics - 1; j++)
             {
-                values[j] = Math.Atan(sinusSp[j] / cosinusSp[j]);
+                values[j] = Math.Atan2(sinusSpectr[j], cosinusSpectr[j]);
+                if (amplitudeSpectr[j] < 0.01)
+                {
+                    values[j] = 0;
+                }
             }
             return values;
         }
@@ -136,14 +148,13 @@ namespace DSP.Lab2.Api
         {           
             double[] values = new double[restorePoints];
             int temp = 0;
-            for (int i = 0; i <= n - 1; i++)
+            for (int i = 0; i < n; i++)
             {
                 double val = 0;
-                for (int j = 0; j <= numHarm - 1; j++)
+                for (int j = 0; j < numberHarmonics; j++)
                 {
-                    val += amplSp[j] * Math.Cos(2 * Math.PI * i * j / n - phaseSp[j]);
+                    val += amplitudeSpectr[j] * Math.Cos(2 * Math.PI * i * j / n - phaseSpectr[j]);
                 }
-
                 if (i % 2 == 0)
                 {
                     values[temp] = val;
@@ -157,14 +168,13 @@ namespace DSP.Lab2.Api
         {
             double[] values = new double[restorePoints];
             int temp = 0;
-            for (int i = 0; i <= n - 1; i++)
+            for (int i = 0; i < n; i++)
             {
                 double val = 0;
-                for (int j = 0; j <= numHarm - 1; j++)
+                for (int j = 0; j < numberHarmonics; j++)
                 {
-                    val += amplSp[j] * Math.Cos(2 * Math.PI * i * j / n);
+                    val += amplitudeSpectr[j] * Math.Cos(2 * Math.PI * i * j / n);
                 }
-                
                 if (i % 2 == 0)
                 {
                     values[temp] = val;

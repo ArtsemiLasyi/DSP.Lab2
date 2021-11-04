@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DSP.Lab2.Api
 {
@@ -17,23 +13,29 @@ namespace DSP.Lab2.Api
             double frequency,
             double phase,
             int discrPoints,
-            int minFrequency,
-            int maxFrequency,
-            FiltrationType filtrationType) : base(minFrequency, maxFrequency, filtrationType)
+            int minHarmonic,
+            int maxHarmonic,
+            FiltrationType filtrationType) : base(minHarmonic, maxHarmonic, filtrationType)
         {
             Amplitude = amplitude;
             n = discrPoints;
             Frequency = frequency;
             Phase = phase;
 
-            numHarm = n % 2 == 0 ? n / 2 : (n - 1) / 2;
-            restorePoints = n % 2 == 0 ? n / 2 : (n / 2 - 1);
+            if (n % 2 == 0)
+            {
+                restorePoints = n / 2;
+            }
+            else
+            {
+                restorePoints = (n / 2 - 1);
+            }
             
             signal = GenerateSignal();
-            sinusSp = GetSineSpectrum();
-            cosinusSp = GetCosineSpectrum();
-            amplSp = GetAmplSpectrum();
-            phaseSp = GetPhaseSpectrum();
+            sinusSpectr = GetSineSpectrum();
+            cosinusSpectr = GetCosineSpectrum();
+            amplitudeSpectr = GetAmplSpectrum();
+            phaseSpectr = GetPhaseSpectrum();
             restSignal = RestoreSignal();
             nonPhasedSignal = RestoreNonPhasedSignal();
         }

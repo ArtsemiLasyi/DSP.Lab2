@@ -4,27 +4,27 @@ namespace DSP.Lab2.Api
 {
     public class PolyharmonicSignal : Signal
     {
-        double[] A;
-        double[] Phi;
+        double[] Amplitudes;
+        double[] Phases;
 
-        double[] resA; 
-        double[] resPhi;
-        double f;
+        double[] resAmplitudes; 
+        double[] resPhases;
+        double Frequency;
         
         public PolyharmonicSignal(
             double[] amplitudes,
-            double freq,
+            double frequency,
             double[] phases,
             int discrPoints,
-            int min,
-            int max,
+            int minHarmonic,
+            int maxHarmonic,
             FiltrationType filtrationType
-        ) : base(min, max, filtrationType)
+        ) : base(minHarmonic, maxHarmonic, filtrationType)
         {
-            A = amplitudes;
+            Amplitudes = amplitudes;
             n = discrPoints;
-            f = freq;
-            Phi = phases;
+            Frequency = frequency;
+            Phases = phases;
 
             if (n % 2 == 0)
             {
@@ -35,40 +35,40 @@ namespace DSP.Lab2.Api
                 restorePoints = (n / 2 - 1);
             }
 
-            numHarm = 30;
+            numberHarmonics = 30;
 
-            resA = new double[numHarm];
-            resPhi = new double[numHarm];
+            resAmplitudes = new double[numberHarmonics];
+            resPhases = new double[numberHarmonics];
 
-            Random rnd = new Random();
-            for (int i = 0; i < numHarm - 1; i++)
+            Random random = new Random();
+            for (int i = 0; i < numberHarmonics; i++)
             {
-                resA[i] = A[rnd.Next(7)];
-                resPhi[i] = Phi[rnd.Next(6)];
+                resAmplitudes[i] = Amplitudes[random.Next(7)];
+                resPhases[i] = Phases[random.Next(6)];
             }
             signal = GenerateSignal();
-            sinusSp = GetSineSpectrum();
-            cosinusSp = GetCosineSpectrum();
-            amplSp = GetAmplSpectrum();
-            phaseSp = GetPhaseSpectrum();
+            sinusSpectr = GetSineSpectrum();
+            cosinusSpectr = GetCosineSpectrum();
+            amplitudeSpectr = GetAmplSpectrum();
+            phaseSpectr = GetPhaseSpectrum();
             restSignal = RestoreSignal();
             nonPhasedSignal = RestoreNonPhasedSignal();
         }
 
         internal override double[] GenerateSignal()
         {
-            double[] sign = new double[n];
-            Random rnd = new Random();
+            double[] signalValues = new double[n];
+            Random random = new Random();
             for (int i = 0; i <= n - 1; i++)
             {
-                double tm = 0;
-                for (int j = 0; j <= numHarm - 1; j++)
+                double temp = 0;
+                for (int j = 0; j < numberHarmonics; j++)
                 {
-                    tm += A[rnd.Next(7)] * Math.Cos(2 * Math.PI * f * i / n - Phi[rnd.Next(6)]);
+                    temp += resAmplitudes[j] * Math.Cos(2 * Math.PI * Frequency * j* i / n - resPhases[j]);
                 }
-                sign[i] = tm;
+                signalValues[i] = temp;
             }
-            return sign;
+            return signalValues;
         }
     }
 }
