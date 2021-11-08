@@ -90,7 +90,7 @@ namespace DSP.Lab2.Presentation
                         10,
                         17
                     };
-                    double[] ph = new double[6]
+                    double[] phase = new double[6]
                     { 
                         Math.PI / 6,
                         Math.PI / 4,
@@ -102,7 +102,7 @@ namespace DSP.Lab2.Presentation
                     signal = new PolyharmonicSignal(
                         A,
                         frequency,
-                        ph,
+                        phase,
                         N,
                         minFrequency,
                         maxFrequency,
@@ -119,7 +119,8 @@ namespace DSP.Lab2.Presentation
             ClearCharts();
 
             Complex[] Summa = new Complex[N];
-            for (int i = 0; i <= N - 1; i++)
+
+            for (int i = 0; i < N; i++)
             {
                 targetCharts[0].Series[0].Points.AddXY(
                     2 * Math.PI * i / N,
@@ -142,17 +143,20 @@ namespace DSP.Lab2.Presentation
 
             if (currentSignal == SignalType.Poliharmonic)
             {
+                targetCharts[3].Series[0].Points.Clear();
                 Complex[] Summa2 = Butterfly.DecimationInTime(Summa, true);
+                int j = 0;
                 for (int i = 0; i < Summa2.Length; i++)
                 {
-                    Summa2[i] /= Summa2.Length;
-                    targetCharts[3].Series[0].Points.AddXY(
-                        i,
-                        Math.Sqrt(
-                            Math.Pow(Summa2[i].Real, 2) + Math.Pow(Summa2[i].Imaginary, 2)
-                        )
-                    );
-                    // 2 * Math.PI * i / N
+                    double amplitude = Summa2[i].Magnitude * 2 / N;
+
+                    if (amplitude > 0.001)
+                    {
+                        targetCharts[3].Series[0].Points.AddXY(
+                            j++,
+                            amplitude
+                        );
+                    }
                 }
             }
 
@@ -167,7 +171,6 @@ namespace DSP.Lab2.Presentation
         // Change frequency
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            FrequencyLabel.Text = "Частота: " + Convert.ToString(FrequencyTrackBar.Value) + " Гц";
             Redraw = false;
             Calculate(
                 FrequencyTrackBar.Value,

@@ -97,18 +97,18 @@
             this.FrequencyLabel.Location = new System.Drawing.Point(8, 89);
             this.FrequencyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FrequencyLabel.Name = "FrequencyLabel";
-            this.FrequencyLabel.Size = new System.Drawing.Size(91, 20);
+            this.FrequencyLabel.Size = new System.Drawing.Size(226, 25);
             this.FrequencyLabel.TabIndex = 2;
-            this.FrequencyLabel.Text = "Частота: 1";
+            this.FrequencyLabel.Text = "Сгенерировать данные";
             // 
             // FrequencyTrackBar
             // 
             this.FrequencyTrackBar.Location = new System.Drawing.Point(8, 117);
             this.FrequencyTrackBar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.FrequencyTrackBar.Maximum = 29;
+            this.FrequencyTrackBar.Maximum = 30;
             this.FrequencyTrackBar.Minimum = 1;
             this.FrequencyTrackBar.Name = "FrequencyTrackBar";
-            this.FrequencyTrackBar.Size = new System.Drawing.Size(384, 45);
+            this.FrequencyTrackBar.Size = new System.Drawing.Size(384, 56);
             this.FrequencyTrackBar.TabIndex = 1;
             this.FrequencyTrackBar.Value = 1;
             this.FrequencyTrackBar.Scroll += new System.EventHandler(this.trackBar1_Scroll);
@@ -122,7 +122,7 @@
             this.SignalComboBox.Location = new System.Drawing.Point(8, 33);
             this.SignalComboBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.SignalComboBox.Name = "SignalComboBox";
-            this.SignalComboBox.Size = new System.Drawing.Size(384, 28);
+            this.SignalComboBox.Size = new System.Drawing.Size(384, 33);
             this.SignalComboBox.TabIndex = 0;
             this.SignalComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -137,7 +137,7 @@
             this.FilterComboBox.Location = new System.Drawing.Point(8, 33);
             this.FilterComboBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.FilterComboBox.Name = "FilterComboBox";
-            this.FilterComboBox.Size = new System.Drawing.Size(339, 28);
+            this.FilterComboBox.Size = new System.Drawing.Size(339, 33);
             this.FilterComboBox.TabIndex = 2;
             this.FilterComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
@@ -163,7 +163,7 @@
             this.HighFrequenciesLabel.Location = new System.Drawing.Point(9, 148);
             this.HighFrequenciesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.HighFrequenciesLabel.Name = "HighFrequenciesLabel";
-            this.HighFrequenciesLabel.Size = new System.Drawing.Size(36, 20);
+            this.HighFrequenciesLabel.Size = new System.Drawing.Size(43, 25);
             this.HighFrequenciesLabel.TabIndex = 6;
             this.HighFrequenciesLabel.Text = "ВЧ:";
             // 
@@ -173,7 +173,7 @@
             this.LowFrequenciesLabel.Location = new System.Drawing.Point(8, 89);
             this.LowFrequenciesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LowFrequenciesLabel.Name = "LowFrequenciesLabel";
-            this.LowFrequenciesLabel.Size = new System.Drawing.Size(37, 20);
+            this.LowFrequenciesLabel.Size = new System.Drawing.Size(44, 25);
             this.LowFrequenciesLabel.TabIndex = 5;
             this.LowFrequenciesLabel.Text = "НЧ:";
             // 
@@ -184,7 +184,7 @@
             this.HighFrequenciesTrackBar.Maximum = 30;
             this.HighFrequenciesTrackBar.Minimum = 1;
             this.HighFrequenciesTrackBar.Name = "HighFrequenciesTrackBar";
-            this.HighFrequenciesTrackBar.Size = new System.Drawing.Size(296, 45);
+            this.HighFrequenciesTrackBar.Size = new System.Drawing.Size(296, 56);
             this.HighFrequenciesTrackBar.TabIndex = 4;
             this.HighFrequenciesTrackBar.Value = 11;
             this.HighFrequenciesTrackBar.Scroll += new System.EventHandler(this.trackBar3_Scroll);
@@ -195,18 +195,18 @@
             this.LowFrequenciesTrackBar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.LowFrequenciesTrackBar.Maximum = 30;
             this.LowFrequenciesTrackBar.Name = "LowFrequenciesTrackBar";
-            this.LowFrequenciesTrackBar.Size = new System.Drawing.Size(296, 45);
+            this.LowFrequenciesTrackBar.Size = new System.Drawing.Size(296, 56);
             this.LowFrequenciesTrackBar.TabIndex = 3;
             this.LowFrequenciesTrackBar.Scroll += new System.EventHandler(this.trackBar2_Scroll);
             // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.chart4);
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Location = new System.Drawing.Point(4, 34);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage4.Size = new System.Drawing.Size(808, 435);
+            this.tabPage4.Size = new System.Drawing.Size(1146, 430);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "БПФ";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -234,10 +234,10 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.chart3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Location = new System.Drawing.Point(4, 34);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(808, 435);
+            this.tabPage3.Size = new System.Drawing.Size(1146, 430);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Амплитудный спектр";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -265,11 +265,11 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.chart2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage2.Size = new System.Drawing.Size(808, 435);
+            this.tabPage2.Size = new System.Drawing.Size(1146, 430);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Фазовый спектр";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -297,11 +297,11 @@
             // TabPage
             // 
             this.TabPage.Controls.Add(this.chart1);
-            this.TabPage.Location = new System.Drawing.Point(4, 29);
+            this.TabPage.Location = new System.Drawing.Point(4, 34);
             this.TabPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.TabPage.Name = "TabPage";
             this.TabPage.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.TabPage.Size = new System.Drawing.Size(808, 435);
+            this.TabPage.Size = new System.Drawing.Size(1146, 430);
             this.TabPage.TabIndex = 0;
             this.TabPage.Text = "Сигналы";
             this.TabPage.UseVisualStyleBackColor = true;
@@ -333,7 +333,7 @@
             this.chart1.Series.Add(series4);
             this.chart1.Series.Add(series5);
             this.chart1.Series.Add(series6);
-            this.chart1.Size = new System.Drawing.Size(796, 401);
+            this.chart1.Size = new System.Drawing.Size(1121, 401);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "Chart";
             // 
@@ -347,15 +347,15 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(816, 468);
+            this.tabControl1.Size = new System.Drawing.Size(1154, 468);
             this.tabControl1.TabIndex = 0;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(841, 741);
+            this.ClientSize = new System.Drawing.Size(1183, 741);
             this.Controls.Add(this.FilterGroupBox);
             this.Controls.Add(this.SignalGroupBox);
             this.Controls.Add(this.tabControl1);
