@@ -123,20 +123,20 @@ namespace DSP.Lab2.Presentation
             for (int i = 0; i < N; i++)
             {
                 targetCharts[0].Series[0].Points.AddXY(
-                    2 * Math.PI * i / N,
+                    i,
                     instSignal.signalValue[i]
                 );
                 Summa[i] = instSignal.signalValue[i];
             }
 
-            for (int i = 0; i <= instSignal.restorePoints - 1; i++)
+            for (int i = 0; i < N; i++)
             {
                 targetCharts[0].Series[1].Points.AddXY(
-                    2 * Math.PI * i / instSignal.restorePoints,
+                    i,
                     instSignal.restoredSignal[i]
                 );
                 targetCharts[0].Series[2].Points.AddXY(
-                    2 * Math.PI * i / instSignal.restorePoints,
+                    i,
                     instSignal.restoredNonPhasedSignal[i]
                 );
             }

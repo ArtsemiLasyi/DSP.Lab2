@@ -123,7 +123,7 @@ namespace DSP.Lab2.Api
 
         internal override double[] RestoreSignal()
         {
-            double[] values = new double[restorePoints];
+            double[] values = new double[n];
             int temp = 0;
             for (int i = 0; i < n; i++)
             {
@@ -132,18 +132,14 @@ namespace DSP.Lab2.Api
                 {
                     val += amplitudeSpectr[j] * Math.Cos(2 * Math.PI * i * j / n - phaseSpectr[j]);
                 }
-                if (i % 2 == 0)
-                {
-                    values[temp] = val;
-                    temp++;
-                }
+                values[i] = val;
             }
             return values;
         }
 
         internal override double[] RestoreNonPhasedSignal()
         {
-            double[] values = new double[restorePoints];
+            double[] values = new double[n];
             int temp = 0;
             for (int i = 0; i < n; i++)
             {
@@ -152,11 +148,7 @@ namespace DSP.Lab2.Api
                 {
                     val += amplitudeSpectr[j] * Math.Cos(2 * Math.PI * i * j / n);
                 }
-                if (i % 2 == 0)
-                {
-                    values[temp] = val;
-                    temp++;
-                }
+                values[i] = val;
             }
             return values;
         }

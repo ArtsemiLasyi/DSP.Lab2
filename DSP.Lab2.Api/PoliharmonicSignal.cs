@@ -35,16 +35,16 @@ namespace DSP.Lab2.Api
                 restorePoints = (n / 2 - 1);
             }
 
-            numberHarmonics = 30;
+            numberHarmonics = n / 2;
 
-            resAmplitudes = new double[numberHarmonics];
-            resPhases = new double[numberHarmonics];
+            resAmplitudes = new double[30];
+            resPhases = new double[30];
 
             Random random = new Random();
-            for (int i = 0; i < numberHarmonics; i++)
+            for (int i = 0; i < 30; i++)
             {
-                resAmplitudes[i] = Amplitudes[random.Next(7)];
-                resPhases[i] = Phases[random.Next(6)];
+                resAmplitudes[i] = Amplitudes[random.Next(Amplitudes.Length)];
+                resPhases[i] = Phases[random.Next(Phases.Length)];
             }
             signal = GenerateSignal();
             sinusSpectr = GetSineSpectrum();
@@ -58,12 +58,12 @@ namespace DSP.Lab2.Api
         internal override double[] GenerateSignal()
         {
             double[] signalValues = new double[n];
-            for (int i = 0; i <= n - 1; i++)
+            for (int i = 0; i < n; i++)
             {
                 double temp = 0;
-                for (int j = 0; j < numberHarmonics; j++)
+                for (int j = 0; j < 30; j++)
                 {
-                    temp += resAmplitudes[j] * Math.Cos(2 * Math.PI * j * i / n - resPhases[j]);
+                    temp += resAmplitudes[j] * Math.Cos(2 * Math.PI * (j + 1) * i / n - resPhases[j]);
                 }
                 signalValues[i] = temp;
             }
@@ -78,7 +78,7 @@ namespace DSP.Lab2.Api
                 double val = 0;
                 for (int i = 0; i < n; i++)
                 {
-                    val += signal[i] * Math.Sin(2 * Math.PI * i * (j + 1) / n);
+                    val += signal[i] * Math.Sin(2 * Math.PI * i * j / n);
                 }
                 values[j] = 2 * val / n;
             }
@@ -93,7 +93,7 @@ namespace DSP.Lab2.Api
                 double val = 0;
                 for (int i = 0; i < n; i++)
                 {
-                    val += signal[i] * Math.Cos(2 * Math.PI * i * (j + 1) / n);
+                    val += signal[i] * Math.Cos(2 * Math.PI * i * j / n);
                 }
                 values[j] = 2 * val / n;
             }
@@ -133,38 +133,35 @@ namespace DSP.Lab2.Api
             for (int j = 0; j < numberHarmonics; j++)
             {
                 values[j] = Math.Atan2(sinusSpectr[j], cosinusSpectr[j]);
-                if (amplitudeSpectr[j] < 0.01)
-                {
-                    values[j] = 0;
-                }
             }
             return values;
         }
 
         internal override double[] RestoreSignal()
         {
-            double[] values = new double[restorePoints];
+            double[] values = new double[n];
             int temp = 0;
             for (int i = 0; i < n; i++)
             {
                 double val = 0;
-                for (int j = 0; j < numberHarmonics; j++)
+                for (int j = 1; j < numberHarmonics; j++)
                 {
-                    val += amplitudeSpectr[j] * Math.Cos(2 * Math.PI * i * (j + 1) / n - phaseSpectr[j]);
+                    val += amplitudeSpectr[j] * Math.Cos(2 * Math.PI * i * j / n - phaseSpectr[j]);
                 }
                 val += amplitudeSpectr[0] / 2;
-                if (i % 2 == 0)
-                {
-                    values[temp] = val;
-                    temp++;
-                }
+                //if (i % 2 == 0)
+                //{
+                //    values[temp] = val;
+                //    temp++;
+                //}
+                values[i] = val;
             }
             return values;
         }
 
         internal override double[] RestoreNonPhasedSignal()
         {
-            double[] values = new double[restorePoints];
+            double[] values = new double[n];
             int temp = 0;
             for (int i = 0; i < n; i++)
             {
@@ -174,11 +171,12 @@ namespace DSP.Lab2.Api
                     val += amplitudeSpectr[j] * Math.Cos(2 * Math.PI * i * (j + 1) / n);
                 }
                 val += amplitudeSpectr[0] / 2;
-                if (i % 2 == 0)
-                {
-                    values[temp] = val;
-                    temp++;
-                }
+                //if (i % 2 == 0)
+                //{
+                //    values[temp] = val;
+                //    temp++;
+                //}
+                values[i] = val;
             }
             return values;
         }
